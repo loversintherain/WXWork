@@ -10,6 +10,7 @@ pg.FAILSAFE = False
 class WXWork(object):
     def __init__(self):
         self.img_dir = "./img_ser/"
+        self.key_word = "{}key_word.png".format(self.img_dir)
         self.notfound = "{}notfound.png".format(self.img_dir)
         self.all_search_items = "{}allsearchitems.png".format(self.img_dir)
         self.search_input = "{}searchinput.png".format(self.img_dir)
@@ -22,6 +23,10 @@ class WXWork(object):
     # 将鼠标移动到搜索框并双击
     def move2search_input(self, offset: tuple = (50, 15)) -> bool:
         self.show_logs(self.search_input)
+        if not WXWork.move_and_click(self.search_input, offset):
+            WXWork.close_key_word()
+        else:
+            return True
         return WXWork.move_and_click(self.search_input, offset)
 
     # 将鼠标移动到全局搜索并单击
@@ -65,11 +70,9 @@ class WXWork(object):
         ret = pg.locateOnScreen(self.notfound)
         return False if ret else True
 
-    @staticmethod
-    def close_key_word():
-        ret = pg.size()
-        pg.moveTo(ret.width - 30, ret.height / 2)
-        pg.click()
+    # 当第一次没有找到输入框，就会寻找是否是进入了全局搜索，如果找到就会关闭。
+    def close_key_word(self):
+        WXWork.move_and_click(self.key_word, offset=(10, 10))
 
     # 将输入框内容全部选中删除，然后将msg复制到clip并粘贴。
     @staticmethod

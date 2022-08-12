@@ -20,7 +20,6 @@ def get_task(q: Queue):
 
 def wx_start(q: Queue, msg: list) -> bool:
     is_success = False
-    wx.close_key_word()
     b = wx.move2search_input()
     if not b:
         q.put("{} not found search input_img".format(time.strftime("%Y-%m-%d %H:%M:%S")))
