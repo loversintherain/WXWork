@@ -15,30 +15,32 @@ def get_task(q: Queue):
         # infos = session.query(Info).filter(Info.flag == 9)
         # for info in infos.all():
         #     wx_start(q, [True, 13651495352, info.message_detail])
-        time.sleep(2)
+        time.sleep(20)
 
 
-def wx_start(q: Queue, msg: list):
+def wx_start(q: Queue, msg: list) -> bool:
+    is_success = False
     wx.close_key_word()
     b = wx.move2search_input()
     if not b:
         q.put("{} not found search input_img".format(time.strftime("%Y-%m-%d %H:%M:%S")))
-        return
+        return is_success
     b = wx.move2trans2global()
     if not b:
         q.put("{} not found search global_img".format(time.strftime("%Y-%m-%d %H:%M:%S")))
-        return
+        return is_success
     b = wx.move2user(msg[0])
     if not b:
         q.put("{} not found search user_img".format(time.strftime("%Y-%m-%d %H:%M:%S")))
-        return
+        return is_success
     wx.cv_msg(msg[1])
     if not wx.is_found():
         q.put("not found user or group => {}".format(msg[1]))
-        return
+        return is_success
     wx.enter()
     wx.cv_msg(msg[2])
     wx.enter()
+    return True
 
 
 def main():

@@ -9,7 +9,7 @@ pg.FAILSAFE = False
 
 class WXWork(object):
     def __init__(self):
-        self.img_dir = "./img/"
+        self.img_dir = "./img_ser/"
         self.notfound = "{}notfound.png".format(self.img_dir)
         self.all_search_items = "{}allsearchitems.png".format(self.img_dir)
         self.search_input = "{}searchinput.png".format(self.img_dir)
