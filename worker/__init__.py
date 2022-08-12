@@ -24,7 +24,7 @@ class WXWork(object):
     def move2search_input(self, offset: tuple = (50, 15)) -> bool:
         self.show_logs(self.search_input)
         if not WXWork.move_and_click(self.search_input, offset):
-            WXWork.close_key_word()
+            self.close_key_word()
         else:
             return True
         return WXWork.move_and_click(self.search_input, offset)
