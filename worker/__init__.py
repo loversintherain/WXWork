@@ -55,11 +55,12 @@ class WXWork(object):
         y += offset[1]
         pg.moveTo(x, y, PAUSE_TIME)
         pg.click()
-        ret = WXWork.move_and_click(self.search_input_global, offset=(80, 15))
-        if not ret:
-            ret = WXWork.move_and_click(self.search_input_global2, offset=(80, 15))
-            if not ret:
-                return False
+        # 鼠标点击联系人或群组之后再找搜索框。
+        # ret = WXWork.move_and_click(self.search_input_global, offset=(80, 15))
+        # if not ret:
+        #     ret = WXWork.move_and_click(self.search_input_global2, offset=(80, 15))
+        #     if not ret:
+        #         return False
         return True
 
     def move2group(self):
