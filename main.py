@@ -15,7 +15,7 @@ def get_task(q: Queue):
         # infos = session.query(Info).filter(Info.flag == 9)
         # for info in infos.all():
         #     wx_start(q, [True, 13651495352, info.message_detail])
-        time.sleep(20)
+        time.sleep(1)
 
 
 def wx_start(q: Queue, msg: list) -> bool:
