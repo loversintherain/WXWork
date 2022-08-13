@@ -1,4 +1,4 @@
-import json
+import json, time
 import multiprocessing
 
 import requests
@@ -19,6 +19,7 @@ def send_hook(hook_q: multiprocessing.Queue):
             req = requests.post(hook_url, headers=headers, data=json.dumps(data))
             if req.status_code == 200:
                 print("send hook ok， msg: {}".format(msg))
+        time.sleep(10)
 
 
 if __name__ == '__main__':

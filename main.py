@@ -19,10 +19,10 @@ def get_tasks(hook_q: Queue, success_q: Queue):
 
 def transfer2success(success_q: Queue):
     while True:
-        print(5)
         if not success_q.empty():
             info = success_q.get()
             db_sess.transfer2success(info)
+        time.sleep(10)
 
 
 def wx_start(hook_q: Queue, msg: list) -> bool:
