@@ -31,7 +31,7 @@ class DBSession(object):
         self.infos = []
 
     def get_send_infos(self):
-        self.infos = self.DB_Session.query(Info).filter(Info.flag.in_([2])).all()
+        self.infos = self.DB_Session.query(Info).filter(Info.flag.in_([9])).all()
 
     def insert_all_info(self):
         self.DB_Session.add_all(self.infos)

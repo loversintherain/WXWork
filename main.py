@@ -10,11 +10,13 @@ db_sess = DBSession()
 
 
 def get_tasks(hook_q: Queue, success_q: Queue):
-    db_sess.get_send_infos()
-    for info in db_sess.infos:
-        if wx_start(hook_q, [True, info.phone, info.message_detail]):
-            info.flag = 2
-            success_q.put(info)
+    while True:
+        db_sess.get_send_infos()
+        for info in db_sess.infos:
+            if wx_start(hook_q, [True, info.phone, info.message_detail]):
+                info.flag = 2
+                success_q.put(info)
+        time.sleep(10)
 
 
 def transfer2success(success_q: Queue):
