@@ -1,5 +1,6 @@
-import json, time
+import json
 import multiprocessing
+import time
 
 import requests
 
