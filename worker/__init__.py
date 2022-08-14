@@ -1,3 +1,5 @@
+import time
+
 import pyautogui as pg
 import pyperclip
 
@@ -17,17 +19,20 @@ class WXWork(object):
         self.search_input = "{}searchinput.png".format(self.img_dir)
         # self.search_input2 = "{}searchinput2.png".format(self.img_dir)
         self.trans2global = "{}trans2global.png".format(self.img_dir)
+        self.send_img = "{}send_img.png".format(self.img_dir)
         self.search_input_global = "{}searchinputglobal.png".format(self.img_dir)
         self.search_input_global2 = "{}searchinputglobal2.png".format(self.img_dir)
         self.show_log = True
 
-    # 将鼠标移动到搜索框并双击
+    # 将鼠标移动到搜索框并双击, 第一次寻找搜索框未找到时，会先尝试关闭全部搜索框，再进行第二次寻找搜索框。
     def move2search_input(self, offset: tuple = (50, 15)) -> bool:
         self.show_logs(self.search_input)
+        # 第一次
         if not WXWork.move_and_click(self.search_input, offset):
             self.close_key_word()
         else:
             return True
+        # 必要时，第二次
         return WXWork.move_and_click(self.search_input, offset)
 
     # 将鼠标移动到全局搜索并单击
@@ -76,6 +81,13 @@ class WXWork(object):
     def close_key_word(self):
         WXWork.move_and_click(self.key_word, offset=(10, 10))
 
+    #
+    def send_ok(self) -> bool:
+        ret = pg.locateOnScreen(self.send_img)
+        if ret is None:
+            return False
+        return True
+
     # 将输入框内容全部选中删除，然后将msg复制到clip并粘贴。
     @staticmethod
     def cv_msg(msg):
@@ -93,7 +105,7 @@ class WXWork(object):
     def move_and_click(img: str, offset: tuple) -> bool:
         ret = pg.locateOnScreen(img)
         if ret is None:
-            print("move_and_click not found {}".format(img[2:]))
+            print("'{}': move_and_click not found '{}'".format(time.strftime("%Y-%m-%d %H:%M:%S"), img[2:]))
             return False
         x, y = ret[0:2]
         x += offset[0]
@@ -107,7 +119,7 @@ class WXWork(object):
 
     def show_logs(self, img: str):
         if self.show_log:
-            print("Start to find out the image: {}".format(img[2:]))
+            print("'{}': Start to find out the image: {}".format(time.strftime("%Y-%m-%d %H:%M:%S"), img[2:]))
 
     def __call__(self, *args, **kwargs):
         print("I can send messages to users and groups automation!!")
