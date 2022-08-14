@@ -5,11 +5,10 @@ from worker import WXWork
 from notice import send_hook_q, send_hook
 from msginfo import DBSession
 
-# 获取企业微信对象
-wx = WXWork()
-# 获取数据库操作对象，如果是测试可以不传或传入True， 传入False则进入正式环境
-db_sess = DBSession()
-# db_sess = DBSession(False)
+# 获取企业微信对象,数据库操作对象,如果是测试可以不传或传入True， 传入False则进入正式环境
+test: bool = True
+wx = WXWork(test)
+db_sess = DBSession(test)
 
 
 def get_tasks(hook_q: Queue, success_q: Queue):

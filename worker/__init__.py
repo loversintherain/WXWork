@@ -10,9 +10,11 @@ pg.FAILSAFE = False
 
 
 class WXWork(object):
-    def __init__(self):
-        self.img_dir = "./img/"
-        # self.img_dir = "./img_ser/"
+    def __init__(self, test: bool = True):
+        if test:
+            self.img_dir = "./img_test/"
+        else:
+            self.img_dir = "./img_ser/"
         self.key_word = "{}key_word.png".format(self.img_dir)
         self.notfound = "{}notfound.png".format(self.img_dir)
         self.all_search_items = "{}allsearchitems.png".format(self.img_dir)
