@@ -1,12 +1,17 @@
 import os
 import time
+from sys import argv
 from multiprocessing import Process, Queue
 from worker import WXWork
 from notice import send_hook_q, send_hook
 from msginfo import DBSession
 
 # 获取企业微信对象,数据库操作对象,如果是测试可以不传或传入True， 传入False则进入正式环境
-test: bool = True
+if len(argv) > 1:
+    test: bool = False
+else:
+    test: bool = True
+print("TEST_env: {}".format(test))
 wx = WXWork(test)
 db_sess = DBSession(test)
 
