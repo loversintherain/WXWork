@@ -1,6 +1,8 @@
+import datetime
 from sqlalchemy import create_engine, Column, VARCHAR, DATETIME, INT
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+
 Base = declarative_base()
 
 
@@ -40,6 +42,7 @@ class DBSession(object):
     def transfer2success(self, msg_info: Info):
         msg_info1 = self.DB_Session.query(Info).filter_by(uuid=msg_info.uuid).first()
         msg_info1.flag = msg_info.flag
+        msg_info1.update_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.DB_Session.commit()
 
 
