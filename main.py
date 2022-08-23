@@ -68,11 +68,20 @@ def wx_start(hook_q: Queue, exit_q: Queue, msg: list) -> bool:
         return False
     wx.enter()
     wx.cv_msg(msg[2])
+    first_check = wx.need_add_user()
     if wx.send_ok:
         wx.enter()
+        time.sleep(2)
         # 消息发送后是否被正常接收。
-        """"""
-        return True
+        second_check = wx.need_add_user()
+        if first_check == 0 and second_check == 0:
+            return True
+        elif first_check > second_check:
+            return True
+        elif first_check == 0 and second_check != 0:
+            return False
+        elif first_check <= second_check:
+            return False
     return False
 
 

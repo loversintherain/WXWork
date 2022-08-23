@@ -24,6 +24,7 @@ class WXWork(object):
         self.send_img = "{}send_img.png".format(self.img_dir)
         self.search_input_global = "{}searchinputglobal.png".format(self.img_dir)
         self.search_input_global2 = "{}searchinputglobal2.png".format(self.img_dir)
+        self.need_add = "{}need_add.png".format(self.img_dir)
         self.show_log = True
 
     # 将鼠标移动到搜索框并双击, 第一次寻找搜索框未找到时，会先尝试关闭全部搜索框，再进行第二次寻找搜索框。
@@ -83,18 +84,26 @@ class WXWork(object):
     def close_key_word(self):
         WXWork.move_and_click(self.key_word, offset=(10, 10))
 
-    #
+    # 判断'发送'按钮是否可以点击。
     def send_ok(self) -> bool:
         ret = pg.locateOnScreen(self.send_img)
         if ret is None:
             return False
         return True
 
+    # 在发送的前后判断消息是否被正常接收
+    def need_add_user(self) -> int:
+        ret = pg.locateAllOnScreen(self.need_add)
+        if not ret:
+            *_, last_pos = ret
+            return int(last_pos.top)
+        return 0
+
     # 将输入框内容全部选中删除，然后将msg复制到clip并粘贴。
     @staticmethod
     def cv_msg(msg):
-        # pg.hotkey("ctrl", "a")
-        # pg.press("delete")
+        pg.hotkey("ctrl", "a")
+        pg.press("delete")
         pyperclip.copy(msg)
         pg.hotkey("ctrl", "v")
 
@@ -118,6 +127,10 @@ class WXWork(object):
         else:
             pg.click()
         return True
+
+    # 检查消息是否被接收
+    def final_check_success(self):
+        pg.locateAllOnScreen(self.final_check)
 
     def show_logs(self, img: str):
         if self.show_log:
