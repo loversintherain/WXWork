@@ -39,7 +39,7 @@ class WXWork(object):
         return WXWork.move_and_click(self.search_input, offset)
 
     # 将鼠标移动到全局搜索并单击
-    def move2trans2global(self,  offset: tuple = (50, 10)) -> bool:
+    def move2trans2global(self, offset: tuple = (50, 10)) -> bool:
         self.show_logs(self.trans2global)
         return WXWork.move_and_click(self.trans2global, offset)
 

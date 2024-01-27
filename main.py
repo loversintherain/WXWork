@@ -1,11 +1,11 @@
 import os
 import time
-from sys import argv
 from multiprocessing import Process, Queue
-from worker import WXWork
-from notice import send_hook_q, send_hook
-from msginfo import DBSession
+from sys import argv
 
+from msginfo import DBSession
+from notice import send_hook_q, send_hook
+from worker import WXWork
 
 # 获取企业微信对象,数据库操作对象,如果是测试可以不传或传入True， 传入False则进入正式环境
 if len(argv) > 1:

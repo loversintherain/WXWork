@@ -1,7 +1,8 @@
 import datetime
+
 from sqlalchemy import create_engine, Column, VARCHAR, DATETIME, INT
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 

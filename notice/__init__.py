@@ -2,6 +2,7 @@ import json
 import multiprocessing
 import random
 import time
+
 import requests
 
 hook_url = "https://oapi.dingtalk.com/robot/send?access_token="

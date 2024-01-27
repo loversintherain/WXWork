@@ -1,3 +1,3 @@
 @echo off
 
-python main.py False
+pipenv run python main.py False
